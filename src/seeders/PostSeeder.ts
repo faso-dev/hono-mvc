@@ -1,5 +1,5 @@
+import {AbstractSeeder} from "../core/AbstractSeeder.js";
 import {CategoryRepository, PostRepository} from "../repositories/index.js";
-import {AbstractSeeder} from "../seeders/index.js";
 
 
 class PostSeeder extends AbstractSeeder {

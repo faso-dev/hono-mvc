@@ -1,5 +1,5 @@
+import {AbstractSeeder} from "../core/AbstractSeeder.js";
 import {TagRepository} from "../repositories/index.js";
-import {AbstractSeeder} from "../seeders/index.js";
 import {ITag} from "../types/index.js";
 import {slugify} from "../utils/index.js";
 

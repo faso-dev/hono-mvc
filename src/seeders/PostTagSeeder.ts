@@ -1,5 +1,5 @@
+import {AbstractSeeder} from "../core/AbstractSeeder.js";
 import {PostRepository, PostTagRepository, TagRepository} from "../repositories/index.js";
-import {AbstractSeeder} from "../seeders/index.js";
 
 
 class PostTagSeeder extends AbstractSeeder {

@@ -1,4 +1,4 @@
-import {AbstractSeeder} from "../seeders/index.js";
+import {AbstractSeeder} from "./AbstractSeeder.js";
 
 interface Seeder {
     name: string;
