@@ -1,13 +1,15 @@
+import {AbstractCommand} from "../core/command/index.js";
+import {DatabaseSeeder} from "../core/seeder/index.js";
 import {CategorySeederCommand, PostSeederCommand, PostTagSeederCommand, TagSeederCommand} from "../seeders/index.js";
-import {DatabaseSeeder} from "../core/DatabaseSeeder.js";
 
 
-class SeedDatabaseHandler {
+class SeedDatabaseCommandImpl extends AbstractCommand {
     name: string;
     description: string;
     seeder: DatabaseSeeder;
     
     constructor() {
+        super();
         this.name = 'seed:database';
         this.description = 'Seed the database with some dummy data';
         this.seeder = new DatabaseSeeder([
@@ -30,7 +32,7 @@ class SeedDatabaseHandler {
         ])
     }
     
-    async handle(args: string[]) {
+    async execute(args: string[]) {
         const specificSeeder = args.find(arg => arg.startsWith('--'));
         
         if (specificSeeder) {
@@ -45,6 +47,6 @@ class SeedDatabaseHandler {
 }
 
 
-const SeedDatabaseCommand = new SeedDatabaseHandler()
+const SeedDatabaseCommand = new SeedDatabaseCommandImpl()
 
 export {SeedDatabaseCommand}

@@ -1,15 +1,26 @@
 #!/usr/bin/env node
 
 
-import {SeedDatabaseCommand} from "./commands/index.js";
+import {MigrateDatabaseCommand, SeedDatabaseCommand} from "./commands/index.js";
+import {Console} from "./core/console/index.js";
 
 
 const [,, ...args] = process.argv;
 
 const command = args[0];
 
-if (command === 'database:seed') {
-    void SeedDatabaseCommand.handle(args.slice(1));
-} else {
-    console.error('Unknown command');
-}
+Console.addCommands([
+    {
+        name: 'database:seed',
+        description: 'Seed the database with some dummy data',
+        command: SeedDatabaseCommand
+    },
+    {
+        name: 'database:migrate',
+        description: 'Migrate the database',
+        command: MigrateDatabaseCommand
+    }
+]).handle(
+    command,
+    args.slice(1)
+)

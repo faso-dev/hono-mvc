@@ -1,39 +1,40 @@
+import {AbstractController} from "../core/http/index.js";
 import {PostRepository} from  "../repositories/index.js";
 import { Context } from 'hono';
 
-class PostCrud {
-    async getAllPosts(c: Context) {
+class PostCrud extends AbstractController{
+    async list(c: Context) {
         console.log('getAllPosts')
         const posts = await PostRepository.findAll();
-        return c.json({
+        return this.json(c,{
             items: posts
         });
     }
     
-    async getPostById(c: Context) {
+    async read(c: Context) {
         const post = await PostRepository.findById(parseInt(c.req.param('id')));
-        return c.json({
+        return this.json(c,{
             item: post
         });
     }
     
-    async createPost(c: Context) {
+    async create(c: Context) {
         const post = await PostRepository.create(await c.req.json());
-        return c.json({
+        return this.json(c,{
             item: post
         }, 201);
     }
     
-    async updatePost(c: Context) {
+    async update(c: Context) {
         const post = await PostRepository.update(parseInt(c.req.param('id')), await c.req.json());
-        return c.json({
+        return this.json(c,{
             item: post
         });
     }
     
-    async deletePost(c: Context) {
+    async delete(c: Context) {
         await PostRepository.delete(parseInt(c.req.param('id')));
-        return c.json(null, 204)
+        return this.json(c,null, 204)
     }
 }
 

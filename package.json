@@ -5,6 +5,7 @@
     "dev": "tsx watch src/server.ts",
     "build": "tsc",
     "start": "node dist/server.js",
+    "database:migrate": "tsx src/console.js database:migrate",
     "database:seed": "tsx src/console.js database:seed"
   },
   "dependencies": {

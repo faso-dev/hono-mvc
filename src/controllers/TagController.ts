@@ -1,38 +1,39 @@
+import {AbstractController} from "../core/http/index.js";
 import {TagRepository} from  "../repositories/index.js";
 import { Context } from 'hono';
 
-class TagCrud {
-    async getAllTags(c: Context) {
+class TagCrud extends AbstractController{
+    async list(c: Context) {
         const tags = await TagRepository.findAll();
-        return c.json({
+        return this.json(c,{
             items: tags
         });
     }
     
-    async getTagById(c: Context) {
+    async read(c: Context) {
         const tag = await TagRepository.findById(parseInt(c.req.param('id')));
-        return c.json({
+        return this.json(c,{
             item: tag
         });
     }
     
-    async createTag(c: Context) {
+    async create(c: Context) {
         const tag = await TagRepository.create(await c.req.json());
-        return c.json({
+        return this.json(c,{
             item: tag
         }, 201);
     }
     
-    async updateTag(c: Context) {
+    async update(c: Context) {
         const tag = await TagRepository.update(parseInt(c.req.param('id')), await c.req.json());
-        return c.json({
+        return this.json(c,{
             item: tag
         });
     }
     
-    async deleteTag(c: Context) {
+    async delete(c: Context) {
         await TagRepository.delete(parseInt(c.req.param('id')));
-        return c.json(null, 204)
+        return this.json(c,null, 204)
     }
 }
 

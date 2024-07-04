@@ -1,4 +1,4 @@
-import {AbstractSeeder} from "../core/AbstractSeeder.js";
+import {AbstractSeeder} from "../core/seeder/index.js";
 import {CategoryRepository} from "../repositories/index.js";
 import {ICategory} from "../types/index.js";
 import {slugify} from "../utils/index.js";

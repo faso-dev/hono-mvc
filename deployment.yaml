@@ -1,39 +1,81 @@
-# Ce fichier permet de définir un déploiement pour notre application blog-api
-
-# On définit la version de l'API Kubernetes
+# Version de l'API Kubernetes utilisée
 apiVersion: apps/v1
-# On définit le type de ressource
+# Type de ressource Kubernetes
 kind: Deployment
-# On définit les métadonnées du déploiement
+# Métadonnées du déploiement
 metadata:
-  # On définit les labels du déploiement
+  # Nom du déploiement
   name: blog-api
-# On définit les spécifications du déploiement
+# Spécifications du déploiement
 spec:
-  # On définit le nombre de réplicas du déploiement
+  # Nombre de réplicas (instances) à exécuter
   replicas: 2
-  # On définit les spécifications du sélecteur du déploiement
+  # Sélecteur pour identifier les pods gérés par ce déploiement
   selector:
-    # On définit les labels du sélecteur du déploiement
+    # Labels à utiliser pour la sélection
     matchLabels:
-      # On définit les labels du déploiement
+      # Label de l'application
       app: blog-api
-  # On définit les spécifications du template du déploiement
+  # Modèle pour les pods créés par ce déploiement
   template:
-    # On définit les métadonnées du template du déploiement
+    # Métadonnées du pod
     metadata:
-      # On définit les labels du template du déploiement
+      # Labels attribués au pod
       labels:
-        # On définit les labels du déploiement
+        # Label de l'application
         app: blog-api
+    # Spécifications du pod
     spec:
-      # On définit les spécifications des conteneurs du template du déploiement
+      # Conteneurs à exécuter dans le pod
       containers:
-        # On définit le nom du conteneur
+        # Configuration du conteneur
         - name: blog-api
-          # On définit l'image du conteneur
+          env:
+            - name: DATABASE_PATH
+              value: "/app/data/database.sqlite"
+          # Image Docker à utiliser
           image: blog-api:latest
-          # On définit les ports du conteneur
+          # Politique de récupération de l'image (ne jamais tirer l'image, utiliser l'image locale)
+          imagePullPolicy: Never
+          # Ports exposés par le conteneur
           ports:
-            # On définit le port du conteneur
+            # Port du conteneur
             - containerPort: 8004
+          # Ressources allouées au conteneur
+          resources:
+            # Limites maximales de ressources
+            limits:
+              # Limite CPU
+              cpu: "500m"
+              # Limite mémoire
+              memory: "512Mi"
+            # Demandes minimales de ressources
+            requests:
+              # Demande CPU
+              cpu: "250m"
+              # Demande mémoire
+              memory: "256Mi"
+          # Sonde de disponibilité
+          readinessProbe:
+            # Vérification HTTP
+            httpGet:
+              # Chemin à vérifier
+              path: /api/v1/health
+              # Port à utiliser
+              port: 8004
+            # Délai initial avant la première vérification
+            initialDelaySeconds: 10
+            # Intervalle entre les vérifications
+            periodSeconds: 5
+          # Montage de volumes dans le conteneur
+          volumeMounts:
+            # Configuration du montage
+            - name: sqlite-storage
+              # Chemin de montage dans le conteneur
+              mountPath: /app/data
+      # Volumes attachés au pod
+      volumes:
+        # Configuration du volume
+        - name: sqlite-storage
+          # Type de volume (répertoire vide)
+          emptyDir: { }

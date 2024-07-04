@@ -1,11 +1,10 @@
-import {AbstractSeeder} from "../core/AbstractSeeder.js";
+import {AbstractSeeder} from "../core/seeder/index.js";
 import {CategoryRepository, PostRepository} from "../repositories/index.js";
 
 
 class PostSeeder extends AbstractSeeder {
     async run(): Promise<void> {
         const categories = await CategoryRepository.findAll();
-        console.log(categories[0])
         // create 100 posts
         const posts = [];
         for (let i = 0; i < 100; i++) {

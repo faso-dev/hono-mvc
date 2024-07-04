@@ -1,39 +1,41 @@
+import {th} from "@faker-js/faker";
+import {AbstractController} from "../core/http/index.js";
 import {CategoryRepository} from "../repositories/index.js";
 import {Context} from 'hono';
 
 
-class CategoryCrud {
-    async getAllCategorys(c: Context) {
+class CategoryCrud extends AbstractController{
+    async list(c: Context) {
         const categories = await CategoryRepository.findAll();
-        return c.json({
+        return this.json(c,{
             items: categories
         });
     }
     
-    async getCategoryById(c: Context) {
+    async read(c: Context) {
         const category = await CategoryRepository.findById(parseInt(c.req.param('id')));
-        return c.json({
+        return this.json(c,{
             item: category
         });
     }
     
-    async createCategory(c: Context) {
+    async create(c: Context) {
         const category = await CategoryRepository.create(await c.req.json());
-        return c.json({
+        return this.json(c,{
             item: category
         }, 201);
     }
     
-    async updateCategory(c: Context) {
+    async update(c: Context) {
         const category = await CategoryRepository.update(parseInt(c.req.param('id')), await c.req.json());
-        return c.json({
+        return this.json(c,{
             item: category
         });
     }
     
-    async deleteCategory(c: Context) {
+    async delete(c: Context) {
         await CategoryRepository.delete(parseInt(c.req.param('id')));
-        return c.json(null, 204)
+        return this.json(c,null, 204)
     }
 }
 

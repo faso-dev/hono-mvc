@@ -16,6 +16,8 @@ COPY . .
 # Build du projet
 RUN yarn build
 
+RUN mkdir -p /app/data
+
 # Attribution des droits d'exécution au script de démarrage
 RUN chmod +x start.sh
 

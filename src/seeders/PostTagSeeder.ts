@@ -1,4 +1,4 @@
-import {AbstractSeeder} from "../core/AbstractSeeder.js";
+import {AbstractSeeder} from "../core/seeder/index.js";
 import {PostRepository, PostTagRepository, TagRepository} from "../repositories/index.js";
 
 
