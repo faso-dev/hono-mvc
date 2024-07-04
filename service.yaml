@@ -1,0 +1,26 @@
+# Ce fichier permet de définir un service pour notre application blog-api
+
+# On définit la version de l'API Kubernetes
+apiVersion: v1
+# On définit le type de ressource
+kind: Service
+# On définit les métadonnées du service
+metadata:
+    # On définit le nom du service
+  name: blog-api
+# On définit les spécifications du service
+spec:
+    # On définit le sélecteur du service
+  selector:
+    # On définit les labels du service
+    app: blog-api
+  # On définit les ports du service
+  ports:
+    # On définit le port du service
+    - protocol: TCP
+      # On définit le port du service
+      port: 80
+      # On définit le port du conteneur
+      targetPort: 8004
+  # On définit le type du service
+  type: LoadBalancer

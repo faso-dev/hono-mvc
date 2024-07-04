@@ -1,0 +1,24 @@
+{
+  "name": "blog-api",
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/server.ts",
+    "build": "tsc",
+    "start": "node dist/server.js",
+    "database:seed": "tsx src/console.js database:seed"
+  },
+  "dependencies": {
+    "@hono/node-server": "^1.12.0",
+    "better-sqlite3": "^11.1.2",
+    "hono": "^4.4.11",
+    "sequelize": "^6.37.3",
+    "sqlite3": "^5.1.7"
+  },
+  "devDependencies": {
+    "@faker-js/faker": "^8.4.1",
+    "@types/better-sqlite3": "^7.6.11",
+    "@types/node": "^20.11.17",
+    "tsx": "^4.7.1",
+    "typescript": "^5.0.0"
+  }
+}

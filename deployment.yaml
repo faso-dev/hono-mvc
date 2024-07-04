@@ -1,0 +1,39 @@
+# Ce fichier permet de définir un déploiement pour notre application blog-api
+
+# On définit la version de l'API Kubernetes
+apiVersion: apps/v1
+# On définit le type de ressource
+kind: Deployment
+# On définit les métadonnées du déploiement
+metadata:
+  # On définit les labels du déploiement
+  name: blog-api
+# On définit les spécifications du déploiement
+spec:
+  # On définit le nombre de réplicas du déploiement
+  replicas: 2
+  # On définit les spécifications du sélecteur du déploiement
+  selector:
+    # On définit les labels du sélecteur du déploiement
+    matchLabels:
+      # On définit les labels du déploiement
+      app: blog-api
+  # On définit les spécifications du template du déploiement
+  template:
+    # On définit les métadonnées du template du déploiement
+    metadata:
+      # On définit les labels du template du déploiement
+      labels:
+        # On définit les labels du déploiement
+        app: blog-api
+    spec:
+      # On définit les spécifications des conteneurs du template du déploiement
+      containers:
+        # On définit le nom du conteneur
+        - name: blog-api
+          # On définit l'image du conteneur
+          image: blog-api:latest
+          # On définit les ports du conteneur
+          ports:
+            # On définit le port du conteneur
+            - containerPort: 8004
