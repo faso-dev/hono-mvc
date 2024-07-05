@@ -1,20 +1,29 @@
 import {AbstractSeeder} from "../core/seeder/index.js";
 import {CategoryRepository, PostRepository} from "../repositories/index.js";
+import {IPost} from "../types/index.js";
+import {slugify} from "../utils/index.js";
 
 
 class PostSeeder extends AbstractSeeder {
     async run(): Promise<void> {
         const categories = await CategoryRepository.findAll();
         // create 100 posts
-        const posts = [];
+        const posts = [] as IPost[];
         for (let i = 0; i < 100; i++) {
-            let category_id = this.fakerInstance.helpers.arrayElement(categories).id;
+            const category_id = this.fakerInstance.helpers.arrayElement(categories).id;
+            let name = this.fakerInstance.commerce.productName();
+            // ensure that the name is unique
+            while (posts.some(post => post.title === name)) {
+                name = this.fakerInstance.commerce.productName();
+            }
+            
             
             posts.push({
-                title: this.fakerInstance.commerce.productName(),
-                content: this.fakerInstance.lorem.paragraph(),
+                title: name,
+                content: this.fakerInstance.lorem.text(),
                 category_id,
-                slug: this.fakerInstance.lorem.slug(),
+                slug: slugify(name),
+                excerpt: this.fakerInstance.lorem.sentence(),
             });
         }
         

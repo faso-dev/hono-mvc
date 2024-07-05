@@ -2,8 +2,6 @@ import {serve} from '@hono/node-server'
 import {Hono} from "hono";
 import {logger} from 'hono/logger'
 import {prettyJSON} from 'hono/pretty-json'
-
-import {database} from "./config/database.js";
 import {errorHandler, notFound} from "./middlewares/index.js";
 import {api} from "./routes/index.js";
 

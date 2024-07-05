@@ -1,12 +1,10 @@
 #!/bin/sh
 
-# Démarre le serveur
+# Syncronisation des Models Objets en tables
 yarn database:migrate
 
+# On pré-rempli la base de données
 yarn database:seed
 
+# Démarre le serveur
 node dist/server.js
-
-# Crée la base de données, les tables et pré-rempli
-# la base de données de données
-

@@ -5,12 +5,13 @@
     "dev": "tsx watch src/server.ts",
     "build": "tsc",
     "start": "node dist/server.js",
-    "database:migrate": "tsx src/console.js database:migrate",
-    "database:seed": "tsx src/console.js database:seed"
+    "database:migrate": "tsx dist/console.js database:migrate",
+    "database:seed": "tsx dist/console.js database:seed"
   },
   "dependencies": {
     "@hono/node-server": "^1.12.0",
     "better-sqlite3": "^11.1.2",
+    "canvas-confetti": "^1.9.3",
     "hono": "^4.4.11",
     "sequelize": "^6.37.3",
     "sqlite3": "^5.1.7"

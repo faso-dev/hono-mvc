@@ -1,7 +1,6 @@
-import {th} from "@faker-js/faker";
+import {Context} from 'hono';
 import {AbstractController} from "../core/http/index.js";
 import {CategoryRepository} from "../repositories/index.js";
-import {Context} from 'hono';
 
 
 class CategoryCrud extends AbstractController{

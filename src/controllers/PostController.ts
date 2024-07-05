@@ -1,6 +1,7 @@
+import {Context} from 'hono';
 import {AbstractController} from "../core/http/index.js";
-import {PostRepository} from  "../repositories/index.js";
-import { Context } from 'hono';
+import {PostRepository} from "../repositories/index.js";
+
 
 class PostCrud extends AbstractController{
     async list(c: Context) {

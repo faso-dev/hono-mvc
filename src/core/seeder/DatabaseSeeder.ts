@@ -1,5 +1,6 @@
 import {AbstractSeeder} from "./AbstractSeeder.js";
 
+
 interface Seeder {
     name: string;
     command: AbstractSeeder;

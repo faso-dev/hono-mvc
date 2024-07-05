@@ -1,11 +1,16 @@
 import {Deletable, Selectable, Updatable, Writable} from "../core/contracts/orm/index.js";
-import {Post} from "../models/index.js";
+import {Category, Post, Tag} from "../models/index.js";
 import {IPost} from "../types/index.js";
 
 
 class PostRepositoryImpl implements Selectable<Post>, Writable<Post>, Updatable<Post>, Deletable<Post> {
     async findAll() {
-        return await Post.findAll();
+        return await Post.findAll({
+            include: [
+                {model: Category, as: 'category', attributes: ['id', 'name', 'slug']},
+                {model: Tag, as: 'tags', attributes: ['id', 'name', 'slug'], through: {attributes: []}}
+            ]
+        });
     }
     
     async findById(id: number) {
@@ -16,7 +21,7 @@ class PostRepositoryImpl implements Selectable<Post>, Writable<Post>, Updatable<
         return Post.findAll({
             where: {
                 [field]: value
-            }
+            },
         })
     }
     

@@ -1,5 +1,6 @@
-import { DataTypes, Model, Optional } from 'sequelize';
+import {DataTypes, Model, Optional} from 'sequelize';
 import {database} from '../config/database.js';
+
 
 interface CategoryAttributes {
     id: number;

@@ -1,5 +1,9 @@
+import {DataTypes, Model, Optional} from 'sequelize';
 import {database} from '../config/database.js';
-import { DataTypes, Model, Optional } from 'sequelize';
+import {Category} from "./Category.js";
+import {PostTag} from "./PostTag.js";
+import {Tag} from "./Tag.js";
+
 
 interface PostAttributes {
     id: number;
@@ -63,5 +67,6 @@ Post.init(
         tableName: 'posts',
     }
 );
-
+Post.belongsTo(Category, {foreignKey: 'category_id', as: 'category'})
+Post.belongsToMany(Tag, {through: PostTag, foreignKey: 'post_id', as: 'tags', otherKey: 'tag_id'})
 export {Post};

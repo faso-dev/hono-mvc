@@ -1,6 +1,7 @@
+import {Context} from 'hono';
 import {AbstractController} from "../core/http/index.js";
-import {TagRepository} from  "../repositories/index.js";
-import { Context } from 'hono';
+import {TagRepository} from "../repositories/index.js";
+
 
 class TagCrud extends AbstractController{
     async list(c: Context) {

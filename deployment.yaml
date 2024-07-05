@@ -30,13 +30,14 @@ spec:
       containers:
         # Configuration du conteneur
         - name: blog-api
+          # Variables d'environnement du conteneur
           env:
             - name: DATABASE_PATH
               value: "/app/data/database.sqlite"
-          # Image Docker à utiliser
-          image: blog-api:latest
-          # Politique de récupération de l'image (ne jamais tirer l'image, utiliser l'image locale)
-          imagePullPolicy: Never
+          # Image Docker à utiliser (à mettre à jour avec votre nom d'utilisateur Docker Hub)
+          image: ${DOCKER_HUB_USERNAME}/blog-api:${DOCKER_IMAGE_VERSION}
+          # Politique de récupération de l'image
+          imagePullPolicy: Always
           # Ports exposés par le conteneur
           ports:
             # Port du conteneur
@@ -77,5 +78,18 @@ spec:
       volumes:
         # Configuration du volume
         - name: sqlite-storage
-          # Type de volume (répertoire vide)
-          emptyDir: { }
+          # Utilisation d'un PersistentVolumeClaim pour le stockage persistant
+          persistentVolumeClaim:
+            claimName: sqlite-pvc
+---
+# Définition du PersistentVolumeClaim
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: sqlite-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi

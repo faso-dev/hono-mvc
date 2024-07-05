@@ -8,8 +8,8 @@ interface PostTagAttributes {
 }
 
 class PostTag extends Model<PostTagAttributes> implements PostTagAttributes {
-    public post_id!: number;
-    public tag_id!: number;
+    declare post_id: number;
+    declare tag_id: number;
 }
 
 PostTag.init(
