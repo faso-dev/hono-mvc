@@ -33,8 +33,5 @@ RUN mkdir -p /app/data
 # Attribution des droits d'exécution au script de démarrage
 RUN chmod +x start.sh
 
-## Exposition du port de l'application
-#EXPOSE 8004
-
 # Commande de démarrage du conteneur
 CMD ["./start.sh"]
